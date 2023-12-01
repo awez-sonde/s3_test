@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s3-test-pod-download
+  namespace: test-s3
+spec:
+  containers:
+  - name: s3-container-download
+    image: public.ecr.aws/aws-cli/aws-cli
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/bash", "-c"," aws s3 --endpoint http://$BUCKET_HOST cp s3://$BUCKET_NAME/test.txt . && sleep 10000000"]
+    env: 
+      - name: AWS_CA_BUNDLE
+        value: /run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+    envFrom:
+      - configMapRef: 
+          name: s3-test
+      - secretRef:
+          name: s3-test 
