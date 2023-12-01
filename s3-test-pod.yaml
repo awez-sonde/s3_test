@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: s3-test-pod
+  namespace: test-s3
+spec:
+  containers:
+  - name: s3-container
+    image: public.ecr.aws/aws-cli/aws-cli
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/bash", "-c","echo this is a file created by $HOSTNAME created on `date` | tee -a  test.txt && aws s3 --endpoint http://$BUCKET_HOST sync . s3://$BUCKET_NAME/ && rm -f test.txt && sleep 10000000"]
+    env: 
+      - name: AWS_CA_BUNDLE
+        value: /run/secrets/kubernetes.io/serviceaccount/service-ca.crt
+    envFrom:
+      - configMapRef: 
+          name: s3-test
+      - secretRef:
+          name: s3-test 
