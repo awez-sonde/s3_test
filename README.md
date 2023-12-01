@@ -92,7 +92,7 @@ spec:
 ```
 
 The command in the above example creates a file called test.txt with the pod hostname and creation date.It then uploads it to the S3 bucket using aws cli.
-Note that we are referncing the environment variables in the container using "envFrom" from the configmap and the scret that the OBC created.
+Note that we are referncing the environment variables in the container using "envFrom" from the configmap and the secret that the OBC created.
 
 Once the above file is applied it creates a pod as below
 
