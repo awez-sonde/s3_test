@@ -1,0 +1,14 @@
+  apiVersion: objectbucket.io/v1alpha1
+  kind: ObjectBucketClaim
+  metadata:
+    labels:
+      app: noobaa
+      bucket-provisioner: openshift-storage.noobaa.io-obc
+      noobaa-domain: openshift-storage.noobaa.io
+    name: s3-test
+    namespace: test-s3
+  spec:
+    additionalConfig:
+      bucketclass: noobaa-default-bucket-class
+    generateBucketName: s3-test
+    storageClassName: openshift-storage.noobaa.io
